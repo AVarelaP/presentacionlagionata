@@ -292,7 +292,7 @@
   }
 
   .slide-header {
-    margin-bottom: 28px;
+    margin-bottom: 10px;
   }
 
   .slide-eyebrow {
@@ -514,20 +514,21 @@
   /* ─── SLIDE: JOURNEY ─── */
   #slide-journey {
     background: var(--beige);
-    padding: 40px;
+    padding: 16px 20px;
     color: var(--azul);
   }
 
   .journey-tabs {
     display: flex;
-    gap: 8px;
-    margin-bottom: 24px;
+    gap: 5px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
   }
 
   .jtab {
-    padding: 8px 20px;
+    padding: 6px 12px;
     border-radius: 8px;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 700;
     cursor: pointer;
     border: 1.5px solid rgba(11,31,58,0.15);
@@ -548,16 +549,16 @@
   .journey-phases {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    gap: 8px;
-    margin-bottom: 16px;
+    gap: 4px;
+    margin-bottom: 4px;
   }
 
   .phase-card {
     background: var(--blanco);
     border-radius: 10px;
-    padding: 14px;
+    padding: 7px 4px;
     text-align: center;
-    border: 1.5px solid rgba(11,31,58,0.08);
+    border: 1px solid rgba(11,31,58,0.08);
     transition: all 0.2s;
     position: relative;
   }
@@ -565,37 +566,37 @@
   .phase-card:hover { border-color: var(--coral); transform: translateY(-2px); }
 
   .phase-num {
-    width: 28px; height: 28px;
+    width: 22px; height: 22px;
     background: var(--azul);
     color: var(--blanco);
     border-radius: 50%;
-    font-size: 11px;
+    font-size: 9px;
     font-weight: 800;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 8px;
+    margin: 0 auto 5px;
   }
 
   .phase-name {
-    font-size: 10px;
+    font-size: 8px;
     font-weight: 800;
     color: var(--azul);
-    margin-bottom: 4px;
+    margin-bottom: 3px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
   }
 
   .phase-feeling {
-    font-size: 18px;
+    font-size: 14px;
     display: block;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
   }
 
   .phase-desc {
-    font-size: 9px;
+    font-size: 8px;
     color: var(--gris);
-    line-height: 1.4;
+    line-height: 1.3;
   }
 
   .phase-pain {
@@ -1122,8 +1123,8 @@
   .phases-connector {
     display: flex;
     align-items: center;
-    margin: 8px 0;
-    padding: 0 14px;
+    margin: 3px 0;
+    padding: 0 8px;
   }
 
   .phases-connector .dot { width: 8px; height: 8px; background: var(--coral); border-radius: 50%; flex-shrink: 0; }
@@ -1543,268 +1544,403 @@
 
 <!-- ═══ SLIDE JOURNEY ═══ -->
 <div class="slide" id="slide-journey">
-  <div class="slide-header">
-    <div class="slide-eyebrow">Customer Journey Map</div>
-    <div class="slide-title">Del descubrimiento a la recomendación</div>
-    <div class="section-divider"></div>
+<style>
+  #slide-journey { background:#F5F1EB; overflow-y:auto; padding:0; }
+  .jmap-wrap { padding:14px 18px 20px; }
+  .jmap-tabs { display:flex; gap:6px; margin-bottom:12px; flex-wrap:wrap; }
+  .jmap-tab { padding:7px 16px; border-radius:8px; font-size:11px; font-weight:700; cursor:pointer; border:1.5px solid rgba(11,31,58,0.15); background:transparent; color:#6B7280; transition:all 0.2s; font-family:'Merriweather Sans',sans-serif; }
+  .jmap-tab.active, .jmap-tab:hover { background:#0B1F3A; color:#fff; border-color:#0B1F3A; }
+  .jmap-content { display:none; }
+  .jmap-content.active { display:block; }
+
+  /* Header del persona */
+  .jmap-header { display:grid; grid-template-columns:260px 1fr; gap:0; background:#fff; border-radius:12px 12px 0 0; border:1.5px solid rgba(11,31,58,0.1); border-bottom:none; margin-bottom:0; overflow:hidden; }
+  .jmap-persona { display:flex; align-items:center; gap:14px; padding:16px 18px; border-right:1px solid rgba(11,31,58,0.08); }
+  .jmap-avatar { width:64px; height:64px; border-radius:50%; object-fit:cover; border:3px solid #FF6B6B; flex-shrink:0; font-size:28px; display:flex; align-items:center; justify-content:center; background:#0B1F3A; }
+  .jmap-pname { font-size:16px; font-weight:800; color:#0B1F3A; font-family:'Merriweather',serif; }
+  .jmap-prole { font-size:11px; color:#FF6B6B; font-weight:600; margin:2px 0; }
+  .jmap-pdata { font-size:10px; color:#6B7280; line-height:1.6; }
+  .jmap-pquote { font-size:11px; font-style:italic; color:#0B1F3A; margin-top:4px; }
+  .jmap-desc { padding:16px 20px; }
+  .jmap-desc-title { font-size:14px; font-weight:800; color:#0B1F3A; margin-bottom:6px; font-family:'Merriweather',serif; }
+  .jmap-desc-text { font-size:12px; color:#4a5568; line-height:1.6; }
+
+  /* Tabla del journey */
+  .jmap-table { border:1.5px solid rgba(11,31,58,0.1); border-radius:0 0 12px 12px; overflow:hidden; }
+  .jmap-row { display:grid; gap:0; border-bottom:1px solid rgba(11,31,58,0.07); }
+  .jmap-row:last-child { border-bottom:none; }
+  .jmap-row-7 { grid-template-columns:80px repeat(6,1fr); }
+  .jmap-label { background:#0B1F3A; color:#fff; display:flex; align-items:center; justify-content:center; padding:8px 4px; font-size:9px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; text-align:center; line-height:1.3; }
+  .jmap-cell { background:#fff; padding:8px 8px; font-size:10px; color:#374151; border-left:1px solid rgba(11,31,58,0.07); line-height:1.4; display:flex; flex-direction:column; justify-content:flex-start; }
+  .jmap-cell:first-child { border-left:none; }
+
+  /* Row FASES - header visual */
+  .jmap-fase-cell { background:#fff; border-left:1px solid rgba(11,31,58,0.07); padding:10px 6px; text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .jmap-fase-num { width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:800; color:#fff; margin:0 auto 4px; }
+  .jmap-fase-name { font-size:10px; font-weight:800; color:#0B1F3A; text-transform:uppercase; letter-spacing:0.3px; }
+  .jmap-fase-sub { font-size:8px; color:#FF6B6B; font-weight:700; letter-spacing:0.5px; }
+
+  /* Feeling row especial */
+  .jmap-feeling-cell { background:#fff; border-left:1px solid rgba(11,31,58,0.07); padding:8px 4px; text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .jmap-emoji { font-size:20px; display:block; margin-bottom:3px; }
+  .jmap-feeling-name { font-size:9px; color:#0B1F3A; font-weight:700; }
+
+  /* Goals row */
+  .jmap-goal-cell { background:#fff9f9; border-left:1px solid rgba(11,31,58,0.07); padding:8px 8px; font-size:10px; color:#1a202c; font-weight:600; line-height:1.4; }
+
+  /* Pain row */
+  .jmap-pain-cell { background:#fff; border-left:1px solid rgba(11,31,58,0.07); padding:8px 8px; font-size:10px; color:#c53030; line-height:1.4; }
+
+  /* Actions bullets */
+  .jmap-actions li { margin-left:12px; margin-bottom:2px; }
+</style>
+
+<div class="jmap-wrap">
+  <div class="jmap-tabs">
+    <button class="jmap-tab active" onclick="showJmap('carlos', this)">🎙️ Carlos Mejía</button>
+    <button class="jmap-tab" onclick="showJmap('valentina', this)">📱 Valentina Flores</button>
+    <button class="jmap-tab" onclick="showJmap('oscar', this)">🤝 Oscar Hernández</button>
+    <button class="jmap-tab" onclick="showJmap('daniela', this)">📰 Daniela Rivera</button>
   </div>
 
-  <div class="journey-tabs">
-    <button class="jtab active" onclick="showJourney('carlos')">🎙️ Carlos Mejía</button>
-    <button class="jtab" onclick="showJourney('valentina')">📱 Valentina Flores</button>
-    <button class="jtab" onclick="showJourney('oscar')">🤝 Oscar Hernández</button>
-    <button class="jtab" onclick="showJourney('daniela')">📰 Daniela Rivera</button>
-  </div>
-
-  <!-- ── CARLOS JOURNEY ── -->
-  <div class="journey-content active" id="jc-carlos">
-    <!-- Fases -->
-    <div class="journey-phases">
-      <div class="phase-card"><div class="phase-num">1</div><div class="phase-name">Descubrimiento</div><span class="phase-feeling">🤔</span><div style="font-size:9px;color:var(--coral);font-weight:700;margin:4px 0 2px;letter-spacing:1px;">AWARENESS</div></div>
-      <div class="phase-card"><div class="phase-num">2</div><div class="phase-name">Selección</div><span class="phase-feeling">🙂</span><div style="font-size:9px;color:var(--coral);font-weight:700;margin:4px 0 2px;letter-spacing:1px;">PODCAST SELECTION</div></div>
-      <div class="phase-card"><div class="phase-num">3</div><div class="phase-name">Escucha Activa</div><span class="phase-feeling">😊</span><div style="font-size:9px;color:var(--coral);font-weight:700;margin:4px 0 2px;letter-spacing:1px;">ACTIVE LISTENING</div></div>
-      <div class="phase-card"><div class="phase-num">4</div><div class="phase-name">Interacción</div><span class="phase-feeling">😁</span><div style="font-size:9px;color:var(--coral);font-weight:700;margin:4px 0 2px;letter-spacing:1px;">SHARING</div></div>
-      <div class="phase-card"><div class="phase-num">5</div><div class="phase-name">Retención</div><span class="phase-feeling">😏</span><div style="font-size:9px;color:var(--coral);font-weight:700;margin:4px 0 2px;letter-spacing:1px;">HABIT</div></div>
-      <div class="phase-card"><div class="phase-num">6</div><div class="phase-name">Recomendación</div><span class="phase-feeling">🤩</span><div style="font-size:9px;color:var(--coral);font-weight:700;margin:4px 0 2px;letter-spacing:1px;">ADVOCACY</div></div>
-    </div>
-    <div class="phases-connector"><div class="dot"></div><div class="line"></div><div class="dot"></div><div class="line"></div><div class="dot"></div><div class="line"></div><div class="dot"></div><div class="line"></div><div class="dot"></div><div class="line"></div><div class="dot"></div></div>
-
-    <!-- Stage / Touchpoints -->
-    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:6px;">
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;"><span style="color:var(--azul);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">TOUCHPOINTS</span>TikTok · Instagram · Facebook</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;"><span style="color:var(--azul);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">TOUCHPOINTS</span>Spotify · YouTube</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;"><span style="color:var(--azul);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">TOUCHPOINTS</span>Podcast en audio (episodios completos)</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;"><span style="color:var(--azul);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">TOUCHPOINTS</span>WhatsApp · Redes · Comentarios</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;"><span style="color:var(--azul);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">TOUCHPOINTS</span>Notificaciones · Newsletter</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;"><span style="color:var(--azul);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">TOUCHPOINTS</span>Conversaciones · Grupos · Reseñas</div>
-    </div>
-    <!-- Actions -->
-    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:6px;">
-      <div style="background:#EEF0F4;border-radius:8px;padding:10px;font-size:9px;color:#2d3748;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">ACTIONS</span>Escucha un clip corto · Se interesa por el tema</div>
-      <div style="background:#EEF0F4;border-radius:8px;padding:10px;font-size:9px;color:#2d3748;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">ACTIONS</span>Revisa título y descripción · Elige un episodio</div>
-      <div style="background:#EEF0F4;border-radius:8px;padding:10px;font-size:9px;color:#2d3748;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">ACTIONS</span>Escucha episodio · Toma notas mentales · Guarda</div>
-      <div style="background:#EEF0F4;border-radius:8px;padding:10px;font-size:9px;color:#2d3748;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">ACTIONS</span>Comparte el episodio · Comenta · Envía a contactos</div>
-      <div style="background:#EEF0F4;border-radius:8px;padding:10px;font-size:9px;color:#2d3748;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">ACTIONS</span>Escucha nuevos episodios · Sigue el programa · Activa notificaciones</div>
-      <div style="background:#EEF0F4;border-radius:8px;padding:10px;font-size:9px;color:#2d3748;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">ACTIONS</span>Recomienda el podcast · Sugiere temas · Deja reseñas</div>
-    </div>
-    <!-- Thinking -->
-    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:6px;">
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;font-style:italic;"><span style="color:var(--azul);font-weight:700;font-style:normal;font-size:8px;display:block;margin-bottom:3px;">THINKING</span>"Este tema me puede ser útil"</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;font-style:italic;"><span style="color:var(--azul);font-weight:700;font-style:normal;font-size:8px;display:block;margin-bottom:3px;">THINKING</span>"A ver si vale la pena escucharlo"</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;font-style:italic;"><span style="color:var(--azul);font-weight:700;font-style:normal;font-size:8px;display:block;margin-bottom:3px;">THINKING</span>"Me gusta cómo explican las cosas"</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;font-style:italic;"><span style="color:var(--azul);font-weight:700;font-style:normal;font-size:8px;display:block;margin-bottom:3px;">THINKING</span>"Esto puede servirle a alguien más"</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;font-style:italic;"><span style="color:var(--azul);font-weight:700;font-style:normal;font-size:8px;display:block;margin-bottom:3px;">THINKING</span>"Ya es parte de mi rutina"</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;font-style:italic;"><span style="color:var(--azul);font-weight:700;font-style:normal;font-size:8px;display:block;margin-bottom:3px;">THINKING</span>"Este podcast siempre tiene buen contenido"</div>
-    </div>
-    <!-- Goals & Pain -->
-    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:6px;">
-      <div style="background:#FFF0F0;border-radius:8px;padding:10px;font-size:9px;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">GOAL</span><span style="color:#374151;</span><div style="margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,107,107,0.2);color:rgba(255,107,107,0.7);font-size:8px;">⚠ Clips aburridos</div></div>
-      <div style="background:#FFF0F0;border-radius:8px;padding:10px;font-size:9px;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">GOAL</span><span style="color:#374151;</span><div style="margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,107,107,0.2);color:rgba(255,107,107,0.7);font-size:8px;">⚠ Descripciones engañosas</div></div>
-      <div style="background:#FFF0F0;border-radius:8px;padding:10px;font-size:9px;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">GOAL</span><span style="color:#374151;</span><div style="margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,107,107,0.2);color:rgba(255,107,107,0.7);font-size:8px;">⚠ Episodios con mucha opinión</div></div>
-      <div style="background:#FFF0F0;border-radius:8px;padding:10px;font-size:9px;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">GOAL</span><span style="color:#374151;</span><div style="margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,107,107,0.2);color:rgba(255,107,107,0.7);font-size:8px;">⚠ No hay fragmentos fáciles de compartir</div></div>
-      <div style="background:#FFF0F0;border-radius:8px;padding:10px;font-size:9px;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">GOAL</span><span style="color:#374151;</span><div style="margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,107,107,0.2);color:rgba(255,107,107,0.7);font-size:8px;">⚠ Falta de frecuencia de publicación</div></div>
-      <div style="background:#FFF0F0;border-radius:8px;padding:10px;font-size:9px;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">GOAL</span><span style="color:#374151;</span><div style="margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,107,107,0.2);color:rgba(255,107,107,0.7);font-size:8px;">⚠ Poca interacción con la comunidad</div></div>
-    </div>
-  </div>
-
-  <!-- ── VALENTINA JOURNEY ── -->
-  <div class="journey-content" id="jc-valentina">
-    <div class="journey-phases">
-      <div class="phase-card"><div class="phase-num">1</div><div class="phase-name">Descubrimiento</div><span class="phase-feeling">🤔</span><div style="font-size:9px;color:var(--coral);font-weight:700;margin:4px 0 2px;letter-spacing:1px;">AWARENESS</div></div>
-      <div class="phase-card"><div class="phase-num">2</div><div class="phase-name">Consumo Rápido</div><span class="phase-feeling">🙂</span><div style="font-size:9px;color:var(--coral);font-weight:700;margin:4px 0 2px;letter-spacing:1px;">QUICK CONSUMPTION</div></div>
-      <div class="phase-card"><div class="phase-num">3</div><div class="phase-name">Profundización</div><span class="phase-feeling">😊</span><div style="font-size:9px;color:var(--coral);font-weight:700;margin:4px 0 2px;letter-spacing:1px;">DEEPER EXPLORATION</div></div>
-      <div class="phase-card"><div class="phase-num">4</div><div class="phase-name">Interacción</div><span class="phase-feeling">🥰</span><div style="font-size:9px;color:var(--coral);font-weight:700;margin:4px 0 2px;letter-spacing:1px;">SOCIAL ENGAGEMENT</div></div>
-      <div class="phase-card"><div class="phase-num">5</div><div class="phase-name">Conversión</div><span class="phase-feeling">😏</span><div style="font-size:9px;color:var(--coral);font-weight:700;margin:4px 0 2px;letter-spacing:1px;">FOLLOWER</div></div>
-      <div class="phase-card"><div class="phase-num">6</div><div class="phase-name">Embajadora</div><span class="phase-feeling">🤩</span><div style="font-size:9px;color:var(--coral);font-weight:700;margin:4px 0 2px;letter-spacing:1px;">ADVOCACY</div></div>
-    </div>
-    <div class="phases-connector"><div class="dot"></div><div class="line"></div><div class="dot"></div><div class="line"></div><div class="dot"></div><div class="line"></div><div class="dot"></div><div class="line"></div><div class="dot"></div><div class="line"></div><div class="dot"></div></div>
-    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:6px;">
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;"><span style="color:var(--azul);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">TOUCHPOINTS</span>TikTok · Instagram · Reels</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;"><span style="color:var(--azul);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">TOUCHPOINTS</span>YouTube · Shorts · Stories · Clips</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;"><span style="color:var(--azul);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">TOUCHPOINTS</span>Sitio web · Artículos · Podcast · Carruseles</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;"><span style="color:var(--azul);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">TOUCHPOINTS</span>Comentarios · Likes · Guardados · Encuestas</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;"><span style="color:var(--azul);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">TOUCHPOINTS</span>Seguimiento · Notificaciones · Newsletter</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;"><span style="color:var(--azul);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">TOUCHPOINTS</span>Comparte · Recomienda · Comunidad</div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:6px;">
-      <div style="background:#EEF0F4;border-radius:8px;padding:10px;font-size:9px;color:#2d3748;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">ACTIONS</span>Ve un video corto · Se detiene por el gancho</div>
-      <div style="background:#EEF0F4;border-radius:8px;padding:10px;font-size:9px;color:#2d3748;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">ACTIONS</span>Mira el video completo · Guarda para después</div>
-      <div style="background:#EEF0F4;border-radius:8px;padding:10px;font-size:9px;color:#2d3748;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">ACTIONS</span>Entra al enlace · Lee más · Escucha podcast</div>
-      <div style="background:#EEF0F4;border-radius:8px;padding:10px;font-size:9px;color:#2d3748;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">ACTIONS</span>Comenta · Participa en encuestas · Comparte en stories</div>
-      <div style="background:#EEF0F4;border-radius:8px;padding:10px;font-size:9px;color:#2d3748;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">ACTIONS</span>Sigue la cuenta · Activa notificaciones · Se suscribe</div>
-      <div style="background:#EEF0F4;border-radius:8px;padding:10px;font-size:9px;color:#2d3748;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">ACTIONS</span>Recomienda el medio · Comparte contenido · Participa en debates</div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:6px;">
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;font-style:italic;"><span style="color:var(--azul);font-weight:700;font-style:normal;font-size:8px;display:block;margin-bottom:3px;">THINKING</span>"¿Qué está pasando?"</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;font-style:italic;"><span style="color:var(--azul);font-weight:700;font-style:normal;font-size:8px;display:block;margin-bottom:3px;">THINKING</span>"Esto se entiende rápido y me gusta"</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;font-style:italic;"><span style="color:var(--azul);font-weight:700;font-style:normal;font-size:8px;display:block;margin-bottom:3px;">THINKING</span>"Quiero saber más sobre este tema"</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;font-style:italic;"><span style="color:var(--azul);font-weight:700;font-style:normal;font-size:8px;display:block;margin-bottom:3px;">THINKING</span>"Tengo algo que decir sobre esto"</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;font-style:italic;"><span style="color:var(--azul);font-weight:700;font-style:normal;font-size:8px;display:block;margin-bottom:3px;">THINKING</span>"Me gusta este medio, quiero seguir su contenido"</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;font-style:italic;"><span style="color:var(--azul);font-weight:700;font-style:normal;font-size:8px;display:block;margin-bottom:3px;">THINKING</span>"Este medio vale la pena, lo recomiendo"</div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:6px;">
-      <div style="background:#FFF0F0;border-radius:8px;padding:10px;font-size:9px;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">GOAL</span><span style="color:#374151;</span><div style="margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,107,107,0.2);color:rgba(255,107,107,0.7);font-size:8px;">⚠ Videos largos o aburridos</div></div>
-      <div style="background:#FFF0F0;border-radius:8px;padding:10px;font-size:9px;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">GOAL</span><span style="color:#374151;</span><div style="margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,107,107,0.2);color:rgba(255,107,107,0.7);font-size:8px;">⚠ Demasiado texto · Contenido poco visual</div></div>
-      <div style="background:#FFF0F0;border-radius:8px;padding:10px;font-size:9px;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">GOAL</span><span style="color:#374151;</span><div style="margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,107,107,0.2);color:rgba(255,107,107,0.7);font-size:8px;">⚠ Información compleja o desordenada</div></div>
-      <div style="background:#FFF0F0;border-radius:8px;padding:10px;font-size:9px;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">GOAL</span><span style="color:#374151;</span><div style="margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,107,107,0.2);color:rgba(255,107,107,0.7);font-size:8px;">⚠ Comentarios negativos · Poca interacción</div></div>
-      <div style="background:#FFF0F0;border-radius:8px;padding:10px;font-size:9px;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">GOAL</span><span style="color:#374151;</span><div style="margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,107,107,0.2);color:rgba(255,107,107,0.7);font-size:8px;">⚠ Publicaciones irrelevantes · Exceso de info</div></div>
-      <div style="background:#FFF0F0;border-radius:8px;padding:10px;font-size:9px;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">GOAL</span><span style="color:#374151;</span><div style="margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,107,107,0.2);color:rgba(255,107,107,0.7);font-size:8px;">⚠ Falta de participación del medio</div></div>
-    </div>
-  </div>
-
-  <!-- ── OSCAR JOURNEY ── -->
-  <div class="journey-content" id="jc-oscar">
-    <div class="journey-phases">
-      <div class="phase-card"><div class="phase-num">1</div><div class="phase-name">Descubrimiento</div><span class="phase-feeling">🤔</span><div style="font-size:9px;color:var(--coral);font-weight:700;margin:4px 0 2px;letter-spacing:1px;">AWARENESS</div></div>
-      <div class="phase-card"><div class="phase-num">2</div><div class="phase-name">Exploración</div><span class="phase-feeling">🙂</span><div style="font-size:9px;color:var(--coral);font-weight:700;margin:4px 0 2px;letter-spacing:1px;">RESEARCH</div></div>
-      <div class="phase-card"><div class="phase-num">3</div><div class="phase-name">Participación</div><span class="phase-feeling">😊</span><div style="font-size:9px;color:var(--coral);font-weight:700;margin:4px 0 2px;letter-spacing:1px;">ENGAGEMENT</div></div>
-      <div class="phase-card"><div class="phase-num">4</div><div class="phase-name">Vinculación</div><span class="phase-feeling">🥰</span><div style="font-size:9px;color:var(--coral);font-weight:700;margin:4px 0 2px;letter-spacing:1px;">CONNECTION</div></div>
-      <div class="phase-card"><div class="phase-num">5</div><div class="phase-name">Fidelización</div><span class="phase-feeling">😏</span><div style="font-size:9px;color:var(--coral);font-weight:700;margin:4px 0 2px;letter-spacing:1px;">LOYALTY</div></div>
-      <div class="phase-card"><div class="phase-num">6</div><div class="phase-name">Embajador</div><span class="phase-feeling">🤩</span><div style="font-size:9px;color:var(--coral);font-weight:700;margin:4px 0 2px;letter-spacing:1px;">ADVOCACY</div></div>
-    </div>
-    <div class="phases-connector"><div class="dot"></div><div class="line"></div><div class="dot"></div><div class="line"></div><div class="dot"></div><div class="line"></div><div class="dot"></div><div class="line"></div><div class="dot"></div><div class="line"></div><div class="dot"></div></div>
-    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:6px;">
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;"><span style="color:var(--azul);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">TOUCHPOINTS</span>LinkedIn · X · Facebook</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;"><span style="color:var(--azul);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">TOUCHPOINTS</span>Sitio web · Artículos largos · Podcast · Newsletter</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;"><span style="color:var(--azul);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">TOUCHPOINTS</span>Comentarios · Encuestas · Debates · Lives</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;"><span style="color:var(--azul);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">TOUCHPOINTS</span>Comunidad privada · Boletines exclusivos · Eventos</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;"><span style="color:var(--azul);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">TOUCHPOINTS</span>Newsletter · Contenido exclusivo · Acceso anticipado</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;"><span style="color:var(--azul);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">TOUCHPOINTS</span>Recomendaciones · Eventos · Co-creación</div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:6px;">
-      <div style="background:#EEF0F4;border-radius:8px;padding:10px;font-size:9px;color:#2d3748;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">ACTIONS</span>Ve una publicación · Revisa el perfil del medio</div>
-      <div style="background:#EEF0F4;border-radius:8px;padding:10px;font-size:9px;color:#2d3748;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">ACTIONS</span>Lee artículos completos · Escucha episodios · Evalúa credibilidad</div>
-      <div style="background:#EEF0F4;border-radius:8px;padding:10px;font-size:9px;color:#2d3748;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">ACTIONS</span>Comenta y opina · Participa en encuestas · Asiste a lives</div>
-      <div style="background:#EEF0F4;border-radius:8px;padding:10px;font-size:9px;color:#2d3748;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">ACTIONS</span>Se une a la comunidad · Participa en debates · Envía sugerencias</div>
-      <div style="background:#EEF0F4;border-radius:8px;padding:10px;font-size:9px;color:#2d3748;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">ACTIONS</span>Se suscribe al newsletter · Accede a contenido exclusivo · Asiste a eventos</div>
-      <div style="background:#EEF0F4;border-radius:8px;padding:10px;font-size:9px;color:#2d3748;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">ACTIONS</span>Recomienda el medio · Invita a otros · Co-crea contenido</div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:6px;">
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;font-style:italic;"><span style="color:var(--azul);font-weight:700;font-style:normal;font-size:8px;display:block;margin-bottom:3px;">THINKING</span>"Parece diferente a los demás medios"</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;font-style:italic;"><span style="color:var(--azul);font-weight:700;font-style:normal;font-size:8px;display:block;margin-bottom:3px;">THINKING</span>"Aquí sí analizan los temas a fondo"</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;font-style:italic;"><span style="color:var(--azul);font-weight:700;font-style:normal;font-size:8px;display:block;margin-bottom:3px;">THINKING</span>"Quiero aportar mi punto de vista"</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;font-style:italic;"><span style="color:var(--azul);font-weight:700;font-style:normal;font-size:8px;display:block;margin-bottom:3px;">THINKING</span>"Me escuchan y valoran mis ideas"</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;font-style:italic;"><span style="color:var(--azul);font-weight:700;font-style:normal;font-size:8px;display:block;margin-bottom:3px;">THINKING</span>"Este medio comprende lo que necesito"</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;font-style:italic;"><span style="color:var(--azul);font-weight:700;font-style:normal;font-size:8px;display:block;margin-bottom:3px;">THINKING</span>"Vale la pena apoyar y recomendarlo"</div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:6px;">
-      <div style="background:#FFF0F0;border-radius:8px;padding:10px;font-size:9px;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">GOAL</span><span style="color:#374151;</span><div style="margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,107,107,0.2);color:rgba(255,107,107,0.7);font-size:8px;">⚠ Información superficial</div></div>
-      <div style="background:#FFF0F0;border-radius:8px;padding:10px;font-size:9px;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">GOAL</span><span style="color:#374151;</span><div style="margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,107,107,0.2);color:rgba(255,107,107,0.7);font-size:8px;">⚠ Sesgo editorial o poca profundidad</div></div>
-      <div style="background:#FFF0F0;border-radius:8px;padding:10px;font-size:9px;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">GOAL</span><span style="color:#374151;</span><div style="margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,107,107,0.2);color:rgba(255,107,107,0.7);font-size:8px;">⚠ Falta de interacción en otros medios</div></div>
-      <div style="background:#FFF0F0;border-radius:8px;padding:10px;font-size:9px;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">GOAL</span><span style="color:#374151;</span><div style="margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,107,107,0.2);color:rgba(255,107,107,0.7);font-size:8px;">⚠ Medios impersonales y cerrados</div></div>
-      <div style="background:#FFF0F0;border-radius:8px;padding:10px;font-size:9px;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">GOAL</span><span style="color:#374151;</span><div style="margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,107,107,0.2);color:rgba(255,107,107,0.7);font-size:8px;">⚠ Contenido repetitivo o poco exclusivo</div></div>
-      <div style="background:#FFF0F0;border-radius:8px;padding:10px;font-size:9px;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">GOAL</span><span style="color:#374151;</span><div style="margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,107,107,0.2);color:rgba(255,107,107,0.7);font-size:8px;">⚠ No ser tomado en cuenta como miembro</div></div>
-    </div>
-  </div>
-
-  <!-- ── DANIELA JOURNEY ── -->
-  <div class="journey-content" id="jc-daniela">
-    <div class="journey-phases">
-      <div class="phase-card"><div class="phase-num">1</div><div class="phase-name">Descubrimiento</div><span class="phase-feeling">🤔</span><div style="font-size:9px;color:var(--coral);font-weight:700;margin:4px 0 2px;letter-spacing:1px;">AWARENESS</div></div>
-      <div class="phase-card"><div class="phase-num">2</div><div class="phase-name">Consideración</div><span class="phase-feeling">🙂</span><div style="font-size:9px;color:var(--coral);font-weight:700;margin:4px 0 2px;letter-spacing:1px;">RESEARCH</div></div>
-      <div class="phase-card"><div class="phase-num">3</div><div class="phase-name">Consumo</div><span class="phase-feeling">😊</span><div style="font-size:9px;color:var(--coral);font-weight:700;margin:4px 0 2px;letter-spacing:1px;">CONTENT CONSUMPTION</div></div>
-      <div class="phase-card"><div class="phase-num">4</div><div class="phase-name">Participación</div><span class="phase-feeling">🥰</span><div style="font-size:9px;color:var(--coral);font-weight:700;margin:4px 0 2px;letter-spacing:1px;">INTERACTION</div></div>
-      <div class="phase-card"><div class="phase-num">5</div><div class="phase-name">Fidelización</div><span class="phase-feeling">😏</span><div style="font-size:9px;color:var(--coral);font-weight:700;margin:4px 0 2px;letter-spacing:1px;">LOYALTY</div></div>
-      <div class="phase-card"><div class="phase-num">6</div><div class="phase-name">Conversión</div><span class="phase-feeling">🤩</span><div style="font-size:9px;color:var(--coral);font-weight:700;margin:4px 0 2px;letter-spacing:1px;">ADVOCACY</div></div>
-    </div>
-    <div class="phases-connector"><div class="dot"></div><div class="line"></div><div class="dot"></div><div class="line"></div><div class="dot"></div><div class="line"></div><div class="dot"></div><div class="line"></div><div class="dot"></div><div class="line"></div><div class="dot"></div></div>
-    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:6px;">
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;"><span style="color:var(--azul);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">TOUCHPOINTS</span>Instagram · TikTok · Facebook (reels, posts, stories)</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;"><span style="color:var(--azul);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">TOUCHPOINTS</span>Buscador · Sitio web · Recomendaciones</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;"><span style="color:var(--azul);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">TOUCHPOINTS</span>Sitio web · Artículos · Newsletter</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;"><span style="color:var(--azul);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">TOUCHPOINTS</span>Comentarios · Guardados · Compartidos · Encuestas</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;"><span style="color:var(--azul);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">TOUCHPOINTS</span>Newsletter · Notificaciones · Contenido exclusivo</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;"><span style="color:var(--azul);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">TOUCHPOINTS</span>Comunidad · Referidos · Membresía</div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:6px;">
-      <div style="background:#EEF0F4;border-radius:8px;padding:10px;font-size:9px;color:#2d3748;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">ACTIONS</span>Ve un titular atractivo · Hace clic en el enlace</div>
-      <div style="background:#EEF0F4;border-radius:8px;padding:10px;font-size:9px;color:#2d3748;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">ACTIONS</span>Entra al sitio web · Lee titulares · Elige una nota</div>
-      <div style="background:#EEF0F4;border-radius:8px;padding:10px;font-size:9px;color:#2d3748;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">ACTIONS</span>Lee el artículo completo · Explora contenido relacionado · Se suscribe al newsletter</div>
-      <div style="background:#EEF0F4;border-radius:8px;padding:10px;font-size:9px;color:#2d3748;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">ACTIONS</span>Guarda el artículo · Comenta o participa · Comparte en redes</div>
-      <div style="background:#EEF0F4;border-radius:8px;padding:10px;font-size:9px;color:#2d3748;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">ACTIONS</span>Abre correos · Regresa al sitio · Consume contenido regularmente</div>
-      <div style="background:#EEF0F4;border-radius:8px;padding:10px;font-size:9px;color:#2d3748;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">ACTIONS</span>Recomienda el medio · Comparte contenido · Considera membresía</div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:6px;">
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;font-style:italic;"><span style="color:var(--azul);font-weight:700;font-style:normal;font-size:8px;display:block;margin-bottom:3px;">THINKING</span>"¿Qué pasó hoy que todos están hablando?"</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;font-style:italic;"><span style="color:var(--azul);font-weight:700;font-style:normal;font-size:8px;display:block;margin-bottom:3px;">THINKING</span>"A ver, este medio se ve confiable y claro"</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;font-style:italic;"><span style="color:var(--azul);font-weight:700;font-style:normal;font-size:8px;display:block;margin-bottom:3px;">THINKING</span>"Esto explica lo que necesito entender"</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;font-style:italic;"><span style="color:var(--azul);font-weight:700;font-style:normal;font-size:8px;display:block;margin-bottom:3px;">THINKING</span>"Esto vale la pena compartirlo"</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;font-style:italic;"><span style="color:var(--azul);font-weight:700;font-style:normal;font-size:8px;display:block;margin-bottom:3px;">THINKING</span>"Siempre encuentro buena información aquí"</div>
-      <div style="background:white;border-radius:8px;padding:10px;font-size:10px;color:var(--gris);text-align:center;font-style:italic;"><span style="color:var(--azul);font-weight:700;font-style:normal;font-size:8px;display:block;margin-bottom:3px;">THINKING</span>"Este medio sí aporta valor, quiero apoyarlo"</div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:6px;">
-      <div style="background:#FFF0F0;border-radius:8px;padding:10px;font-size:9px;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">GOAL</span><span style="color:#374151;</span><div style="margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,107,107,0.2);color:rgba(255,107,107,0.7);font-size:8px;">⚠ Titulares engañosos o sensacionalistas</div></div>
-      <div style="background:#FFF0F0;border-radius:8px;padding:10px;font-size:9px;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">GOAL</span><span style="color:#374151;</span><div style="margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,107,107,0.2);color:rgba(255,107,107,0.7);font-size:8px;">⚠ Sitios desordenados · Mucha publicidad</div></div>
-      <div style="background:#FFF0F0;border-radius:8px;padding:10px;font-size:9px;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">GOAL</span><span style="color:#374151;</span><div style="margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,107,107,0.2);color:rgba(255,107,107,0.7);font-size:8px;">⚠ Artículos muy largos o difíciles</div></div>
-      <div style="background:#FFF0F0;border-radius:8px;padding:10px;font-size:9px;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">GOAL</span><span style="color:#374151;</span><div style="margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,107,107,0.2);color:rgba(255,107,107,0.7);font-size:8px;">⚠ Comentarios tóxicos · Poca moderación</div></div>
-      <div style="background:#FFF0F0;border-radius:8px;padding:10px;font-size:9px;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">GOAL</span><span style="color:#374151;</span><div style="margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,107,107,0.2);color:rgba(255,107,107,0.7);font-size:8px;">⚠ Notificaciones irrelevantes o excesivas</div></div>
-      <div style="background:#FFF0F0;border-radius:8px;padding:10px;font-size:9px;"><span style="color:var(--coral);font-weight:700;font-size:8px;display:block;margin-bottom:3px;">GOAL</span><span style="color:#374151;</span><div style="margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,107,107,0.2);color:rgba(255,107,107,0.7);font-size:8px;">⚠ Falta de interacción real con el medio</div></div>
-    </div>
-  </div>
-    <div class="journey-phases">
-      <div class="phase-card">
-        <div class="phase-num">1</div>
-        <div class="phase-name">Descubrimiento</div>
-        <span class="phase-feeling">🤔</span>
-        <div class="phase-desc">TikTok, Instagram, Facebook — clips cortos, reels</div>
-        <div class="phase-pain">⚠ Clips aburridos o sensacionalistas</div>
+  <!-- ══ CARLOS ══ -->
+  <div class="jmap-content active" id="jmap-carlos">
+    <div class="jmap-header">
+      <div class="jmap-persona">
+        <div class="jmap-avatar">👨</div>
+        <div>
+          <div class="jmap-pname">Carlos Mejía</div>
+          <div class="jmap-prole">Oyente del podcast</div>
+          <div class="jmap-pdata">👤 34 años &nbsp;|&nbsp; 💼 Supervisor comercial &nbsp;|&nbsp; 📍 Tegucigalpa</div>
+          <div class="jmap-pquote">"Escucho para entender, no solo para enterarme."</div>
+        </div>
       </div>
-      <div class="phase-card">
-        <div class="phase-num">2</div>
-        <div class="phase-name">Selección</div>
-        <span class="phase-feeling">🙂</span>
-        <div class="phase-desc">Spotify, YouTube — revisa título y elige episodio</div>
-        <div class="phase-pain">⚠ Descripciones engañosas</div>
-      </div>
-      <div class="phase-card">
-        <div class="phase-num">3</div>
-        <div class="phase-name">Escucha Activa</div>
-        <span class="phase-feeling">😊</span>
-        <div class="phase-desc">Podcast completo, toma notas mentales</div>
-        <div class="phase-pain">⚠ Episodios con mucha opinión</div>
-      </div>
-      <div class="phase-card">
-        <div class="phase-num">4</div>
-        <div class="phase-name">Interacción</div>
-        <span class="phase-feeling">😁</span>
-        <div class="phase-desc">WhatsApp, redes — comparte el episodio</div>
-        <div class="phase-pain">⚠ No hay fragmentos fáciles de compartir</div>
-      </div>
-      <div class="phase-card">
-        <div class="phase-num">5</div>
-        <div class="phase-name">Retención</div>
-        <span class="phase-feeling">😏</span>
-        <div class="phase-desc">Notificaciones, newsletter, sigue el programa</div>
-        <div class="phase-pain">⚠ Falta de frecuencia de publicación</div>
-      </div>
-      <div class="phase-card">
-        <div class="phase-num">6</div>
-        <div class="phase-name">Recomendación</div>
-        <span class="phase-feeling">🤩</span>
-        <div class="phase-desc">Conversaciones, grupos, reseñas positivas</div>
-        <div class="phase-pain">⚠ Poca interacción con la comunidad</div>
+      <div class="jmap-desc">
+        <div class="jmap-desc-title">Customer Journey Map – Oyente del Podcast</div>
+        <div class="jmap-desc-text">Este mapa muestra cómo Carlos interactúa con nuestro podcast de noticias, desde que descubre un episodio hasta que se convierte en oyente fiel y recomienda el contenido a otros.</div>
       </div>
     </div>
-    <div class="phases-connector">
-      <div class="dot"></div>
-      <div class="line"></div><div class="dot"></div>
-      <div class="line"></div><div class="dot"></div>
-      <div class="line"></div><div class="dot"></div>
-      <div class="line"></div><div class="dot"></div>
-      <div class="line"></div><div class="dot"></div>
-    </div>
-    <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:8px; margin-top:8px;">
-      <div style="background:white; border-radius:8px; padding:12px; font-size:10px; color:var(--gris); text-align:center;"><span style="color:var(--azul); font-weight:700; font-size:9px; display:block; margin-bottom:4px;">THINKING</span>"Este tema me puede ser útil"</div>
-      <div style="background:white; border-radius:8px; padding:12px; font-size:10px; color:var(--gris); text-align:center;"><span style="color:var(--azul); font-weight:700; font-size:9px; display:block; margin-bottom:4px;">THINKING</span>"¿Valdrá la pena escucharlo?"</div>
-      <div style="background:white; border-radius:8px; padding:12px; font-size:10px; color:var(--gris); text-align:center;"><span style="color:var(--azul); font-weight:700; font-size:9px; display:block; margin-bottom:4px;">THINKING</span>"Me gusta cómo explican"</div>
-      <div style="background:white; border-radius:8px; padding:12px; font-size:10px; color:var(--gris); text-align:center;"><span style="color:var(--azul); font-weight:700; font-size:9px; display:block; margin-bottom:4px;">THINKING</span>"Esto sirve a alguien más"</div>
-      <div style="background:white; border-radius:8px; padding:12px; font-size:10px; color:var(--gris); text-align:center;"><span style="color:var(--azul); font-weight:700; font-size:9px; display:block; margin-bottom:4px;">THINKING</span>"Ya es parte de mi rutina"</div>
-      <div style="background:white; border-radius:8px; padding:12px; font-size:10px; color:var(--gris); text-align:center;"><span style="color:var(--azul); font-weight:700; font-size:9px; display:block; margin-bottom:4px;">THINKING</span>"Siempre tiene buen contenido"</div>
+    <div class="jmap-table">
+      <div class="jmap-row jmap-row-7">
+        <div class="jmap-label">Fases</div>
+        <div class="jmap-fase-cell"><div class="jmap-fase-num" style="background:#22c55e">1</div><div class="jmap-fase-name">Descubrimiento</div><div class="jmap-fase-sub">Awareness</div></div>
+        <div class="jmap-fase-cell"><div class="jmap-fase-num" style="background:#06b6d4">2</div><div class="jmap-fase-name">Selección</div><div class="jmap-fase-sub">Podcast Selection</div></div>
+        <div class="jmap-fase-cell"><div class="jmap-fase-num" style="background:#3b82f6">3</div><div class="jmap-fase-name">Escucha Activa</div><div class="jmap-fase-sub">Active Listening</div></div>
+        <div class="jmap-fase-cell"><div class="jmap-fase-num" style="background:#8b5cf6">4</div><div class="jmap-fase-name">Interacción</div><div class="jmap-fase-sub">Sharing</div></div>
+        <div class="jmap-fase-cell"><div class="jmap-fase-num" style="background:#ec4899">5</div><div class="jmap-fase-name">Retención</div><div class="jmap-fase-sub">Habit</div></div>
+        <div class="jmap-fase-cell"><div class="jmap-fase-num" style="background:#f97316">6</div><div class="jmap-fase-name">Recomendación</div><div class="jmap-fase-sub">Advocacy</div></div>
+      </div>
+      <div class="jmap-row jmap-row-7">
+        <div class="jmap-label">Touch&shy;points</div>
+        <div class="jmap-cell">Redes sociales<br><small style="color:#6B7280">(clips, reels, recomendaciones)</small></div>
+        <div class="jmap-cell">Plataformas de podcast<br><small style="color:#6B7280">(Spotify, YouTube)</small></div>
+        <div class="jmap-cell">Podcast en audio<br><small style="color:#6B7280">(episodios completos)</small></div>
+        <div class="jmap-cell">WhatsApp, redes sociales, comentarios del podcast</div>
+        <div class="jmap-cell">Notificaciones, newsletter, episodios nuevos</div>
+        <div class="jmap-cell">Conversaciones, grupos, recomendaciones</div>
+      </div>
+      <div class="jmap-row jmap-row-7">
+        <div class="jmap-label">Actions</div>
+        <div class="jmap-cell"><ul class="jmap-actions"><li>Escucha un clip corto</li><li>Se interesa por el tema</li></ul></div>
+        <div class="jmap-cell"><ul class="jmap-actions"><li>Revisa título y descripción</li><li>Elige un episodio</li></ul></div>
+        <div class="jmap-cell"><ul class="jmap-actions"><li>Escucha el episodio</li><li>Toma notas mentales</li><li>Guarda o descarga</li></ul></div>
+        <div class="jmap-cell"><ul class="jmap-actions"><li>Comparte el episodio</li><li>Comenta</li><li>Envía a contactos</li></ul></div>
+        <div class="jmap-cell"><ul class="jmap-actions"><li>Escucha nuevos episodios</li><li>Sigue el programa</li><li>Activa notificaciones</li></ul></div>
+        <div class="jmap-cell"><ul class="jmap-actions"><li>Recomienda el podcast</li><li>Sugiere temas</li><li>Deja reseñas positivas</li></ul></div>
+      </div>
+      <div class="jmap-row jmap-row-7">
+        <div class="jmap-label">Thinking</div>
+        <div class="jmap-cell" style="font-style:italic;color:#374151;">"Este tema me puede ser útil."</div>
+        <div class="jmap-cell" style="font-style:italic;color:#374151;">"A ver si vale la pena escucharlo."</div>
+        <div class="jmap-cell" style="font-style:italic;color:#374151;">"Me gusta cómo explican las cosas."</div>
+        <div class="jmap-cell" style="font-style:italic;color:#374151;">"Esto puede servirle a alguien más."</div>
+        <div class="jmap-cell" style="font-style:italic;color:#374151;">"Ya es parte de mi rutina."</div>
+        <div class="jmap-cell" style="font-style:italic;color:#374151;">"Este podcast siempre tiene buen contenido."</div>
+      </div>
+      <div class="jmap-row jmap-row-7" style="background:#fafafa;">
+        <div class="jmap-label">Feeling</div>
+        <div class="jmap-feeling-cell"><span class="jmap-emoji">🤔</span><div class="jmap-feeling-name">Curioso</div></div>
+        <div class="jmap-feeling-cell"><span class="jmap-emoji">🙂</span><div class="jmap-feeling-name">Expectante</div></div>
+        <div class="jmap-feeling-cell"><span class="jmap-emoji">😊</span><div class="jmap-feeling-name">Comprendido</div></div>
+        <div class="jmap-feeling-cell"><span class="jmap-emoji">😁</span><div class="jmap-feeling-name">Motivado</div></div>
+        <div class="jmap-feeling-cell"><span class="jmap-emoji">😏</span><div class="jmap-feeling-name">Familiarizado</div></div>
+        <div class="jmap-feeling-cell"><span class="jmap-emoji">🤩</span><div class="jmap-feeling-name">Embajador</div></div>
+      </div>
+      <div class="jmap-row jmap-row-7">
+        <div class="jmap-label">Goals</div>
+        <div class="jmap-goal-cell">Aprovechar el tiempo mientras realiza otras actividades.</div>
+        <div class="jmap-goal-cell">Encontrar contenido de calidad y útil.</div>
+        <div class="jmap-goal-cell">Entender el contexto de las noticias.</div>
+        <div class="jmap-goal-cell">Compartir información que aporta valor.</div>
+        <div class="jmap-goal-cell">Mantenerse informado cada semana.</div>
+        <div class="jmap-goal-cell">Ayudar a otros a estar mejor informados.</div>
+      </div>
+      <div class="jmap-row jmap-row-7">
+        <div class="jmap-label">Pain Points</div>
+        <div class="jmap-pain-cell">Muchos clips aburridos o sensacionalistas.</div>
+        <div class="jmap-pain-cell">Descripciones engañosas o poco claras.</div>
+        <div class="jmap-pain-cell">Episodios largos o con mucha opinión.</div>
+        <div class="jmap-pain-cell">No hay opción de compartir fragmentos fácilmente.</div>
+        <div class="jmap-pain-cell">Falta de frecuencia de publicación.</div>
+        <div class="jmap-pain-cell">Poca interacción con la comunidad.</div>
+      </div>
     </div>
   </div>
 
+  <!-- ══ VALENTINA ══ -->
+  <div class="jmap-content" id="jmap-valentina">
+    <div class="jmap-header">
+      <div class="jmap-persona">
+        <div class="jmap-avatar">👩</div>
+        <div>
+          <div class="jmap-pname">Valentina Flores</div>
+          <div class="jmap-prole">Espectadora multiformato</div>
+          <div class="jmap-pdata">👤 22 años &nbsp;|&nbsp; 💼 Freelance / Estudiante universitaria &nbsp;|&nbsp; 📍 La Ceiba</div>
+          <div class="jmap-pquote">"Quiero entender rápido sin perder tiempo."</div>
+        </div>
+      </div>
+      <div class="jmap-desc">
+        <div class="jmap-desc-title">Customer Journey Map – Espectadora Multiformato</div>
+        <div class="jmap-desc-text">Este mapa muestra cómo Valentina interactúa con nuestro medio digital multiplataforma, desde que descubre un contenido hasta que se convierte en seguidora activa y embajadora de la marca.</div>
+      </div>
+    </div>
+    <div class="jmap-table">
+      <div class="jmap-row jmap-row-7">
+        <div class="jmap-label">Fases</div>
+        <div class="jmap-fase-cell"><div class="jmap-fase-num" style="background:#ec4899">1</div><div class="jmap-fase-name">Descubrimiento</div><div class="jmap-fase-sub">Awareness</div></div>
+        <div class="jmap-fase-cell"><div class="jmap-fase-num" style="background:#f97316">2</div><div class="jmap-fase-name">Consumo Rápido</div><div class="jmap-fase-sub">Quick Consumption</div></div>
+        <div class="jmap-fase-cell"><div class="jmap-fase-num" style="background:#06b6d4">3</div><div class="jmap-fase-name">Profundización</div><div class="jmap-fase-sub">Deeper Exploration</div></div>
+        <div class="jmap-fase-cell"><div class="jmap-fase-num" style="background:#22c55e">4</div><div class="jmap-fase-name">Interacción</div><div class="jmap-fase-sub">Social Engagement</div></div>
+        <div class="jmap-fase-cell"><div class="jmap-fase-num" style="background:#3b82f6">5</div><div class="jmap-fase-name">Conversión</div><div class="jmap-fase-sub">Follower</div></div>
+        <div class="jmap-fase-cell"><div class="jmap-fase-num" style="background:#8b5cf6">6</div><div class="jmap-fase-name">Embajadora</div><div class="jmap-fase-sub">Advocacy</div></div>
+      </div>
+      <div class="jmap-row jmap-row-7">
+        <div class="jmap-label">Touch&shy;points</div>
+        <div class="jmap-cell">Redes sociales<br><small style="color:#6B7280">(TikTok, Instagram, Reels)</small></div>
+        <div class="jmap-cell">Videos cortos, shorts, stories, clips</div>
+        <div class="jmap-cell">Sitio web, artículos, podcast, carruseles</div>
+        <div class="jmap-cell">Comentarios, likes, guardados, encuestas</div>
+        <div class="jmap-cell">Seguimiento, notificaciones, newsletter</div>
+        <div class="jmap-cell">Comparte, recomienda, participa en comunidad</div>
+      </div>
+      <div class="jmap-row jmap-row-7">
+        <div class="jmap-label">Actions</div>
+        <div class="jmap-cell"><ul class="jmap-actions"><li>Ve un video corto</li><li>Se detiene por el gancho</li></ul></div>
+        <div class="jmap-cell"><ul class="jmap-actions"><li>Mira el video completo</li><li>Guarda para después</li></ul></div>
+        <div class="jmap-cell"><ul class="jmap-actions"><li>Entra al enlace</li><li>Lee más información</li><li>Escucha podcast</li></ul></div>
+        <div class="jmap-cell"><ul class="jmap-actions"><li>Comenta</li><li>Participa en encuestas</li><li>Comparte en stories</li></ul></div>
+        <div class="jmap-cell"><ul class="jmap-actions"><li>Sigue la cuenta</li><li>Activa notificaciones</li><li>Suscrita al newsletter</li></ul></div>
+        <div class="jmap-cell"><ul class="jmap-actions"><li>Recomienda el medio</li><li>Comparte contenido</li><li>Participa en debates</li></ul></div>
+      </div>
+      <div class="jmap-row jmap-row-7">
+        <div class="jmap-label">Thinking</div>
+        <div class="jmap-cell" style="font-style:italic;color:#374151;">"¿Qué está pasando?"</div>
+        <div class="jmap-cell" style="font-style:italic;color:#374151;">"Esto se entiende rápido y me gusta."</div>
+        <div class="jmap-cell" style="font-style:italic;color:#374151;">"Quiero saber más sobre este tema."</div>
+        <div class="jmap-cell" style="font-style:italic;color:#374151;">"Tengo algo que decir sobre esto."</div>
+        <div class="jmap-cell" style="font-style:italic;color:#374151;">"Me gusta este medio, quiero seguir su contenido."</div>
+        <div class="jmap-cell" style="font-style:italic;color:#374151;">"Este medio vale la pena, lo recomiendo."</div>
+      </div>
+      <div class="jmap-row jmap-row-7" style="background:#fafafa;">
+        <div class="jmap-label">Feeling</div>
+        <div class="jmap-feeling-cell"><span class="jmap-emoji">🤔</span><div class="jmap-feeling-name">Curiosa</div></div>
+        <div class="jmap-feeling-cell"><span class="jmap-emoji">🙂</span><div class="jmap-feeling-name">Entretenida</div></div>
+        <div class="jmap-feeling-cell"><span class="jmap-emoji">😊</span><div class="jmap-feeling-name">Interesada</div></div>
+        <div class="jmap-feeling-cell"><span class="jmap-emoji">🥰</span><div class="jmap-feeling-name">Participativa</div></div>
+        <div class="jmap-feeling-cell"><span class="jmap-emoji">😏</span><div class="jmap-feeling-name">Identificada</div></div>
+        <div class="jmap-feeling-cell"><span class="jmap-emoji">🤩</span><div class="jmap-feeling-name">Embajadora</div></div>
+      </div>
+      <div class="jmap-row jmap-row-7">
+        <div class="jmap-label">Goals</div>
+        <div class="jmap-goal-cell">Enterarse de lo importante sin invertir mucho tiempo.</div>
+        <div class="jmap-goal-cell">Entender lo esencial de forma visual.</div>
+        <div class="jmap-goal-cell">Profundizar en el tema de manera sencilla.</div>
+        <div class="jmap-goal-cell">Expresar su opinión y conectar con otros.</div>
+        <div class="jmap-goal-cell">No perderse contenido relevante.</div>
+        <div class="jmap-goal-cell">Apoyar y compartir contenido que le gusta.</div>
+      </div>
+      <div class="jmap-row jmap-row-7">
+        <div class="jmap-label">Pain Points</div>
+        <div class="jmap-pain-cell">Videos largos o aburridos. Titulares confusos.</div>
+        <div class="jmap-pain-cell">Demasiado texto. Contenido poco visual.</div>
+        <div class="jmap-pain-cell">Información compleja o desordenada.</div>
+        <div class="jmap-pain-cell">Comentarios negativos. Poca interacción real.</div>
+        <div class="jmap-pain-cell">Publicaciones irrelevantes. Exceso de información.</div>
+        <div class="jmap-pain-cell">Falta de participación del medio con su comunidad.</div>
+      </div>
+    </div>
+  </div>
 
-</div>
+  <!-- ══ OSCAR ══ -->
+  <div class="jmap-content" id="jmap-oscar">
+    <div class="jmap-header">
+      <div class="jmap-persona">
+        <div class="jmap-avatar">👨‍💼</div>
+        <div>
+          <div class="jmap-pname">Oscar Hernández</div>
+          <div class="jmap-prole">Participante / Comunidad</div>
+          <div class="jmap-pdata">👤 31 años &nbsp;|&nbsp; 💼 Consultor independiente &nbsp;|&nbsp; 📍 San Pedro Sula &nbsp;|&nbsp; 🎓 Posgrado</div>
+          <div class="jmap-pquote">"Quiero un medio donde también pueda participar, no solo consumir."</div>
+        </div>
+      </div>
+      <div class="jmap-desc">
+        <div class="jmap-desc-title">Customer Journey Map – Participante / Comunidad</div>
+        <div class="jmap-desc-text">Este mapa muestra cómo Oscar interactúa con nuestro medio digital multiplataforma, desde que descubre el contenido hasta que se convierte en un miembro activo y embajador de la comunidad.</div>
+      </div>
+    </div>
+    <div class="jmap-table">
+      <div class="jmap-row jmap-row-7">
+        <div class="jmap-label">Fases</div>
+        <div class="jmap-fase-cell"><div class="jmap-fase-num" style="background:#22c55e">1</div><div class="jmap-fase-name">Descubrimiento</div><div class="jmap-fase-sub">Awareness</div></div>
+        <div class="jmap-fase-cell"><div class="jmap-fase-num" style="background:#06b6d4">2</div><div class="jmap-fase-name">Exploración</div><div class="jmap-fase-sub">Research</div></div>
+        <div class="jmap-fase-cell"><div class="jmap-fase-num" style="background:#8b5cf6">3</div><div class="jmap-fase-name">Participación</div><div class="jmap-fase-sub">Engagement</div></div>
+        <div class="jmap-fase-cell"><div class="jmap-fase-num" style="background:#ec4899">4</div><div class="jmap-fase-name">Vinculación</div><div class="jmap-fase-sub">Connection</div></div>
+        <div class="jmap-fase-cell"><div class="jmap-fase-num" style="background:#f97316">5</div><div class="jmap-fase-name">Fidelización</div><div class="jmap-fase-sub">Loyalty</div></div>
+        <div class="jmap-fase-cell"><div class="jmap-fase-num" style="background:#f59e0b">6</div><div class="jmap-fase-name">Embajador</div><div class="jmap-fase-sub">Advocacy</div></div>
+      </div>
+      <div class="jmap-row jmap-row-7">
+        <div class="jmap-label">Touch&shy;points</div>
+        <div class="jmap-cell">Redes sociales<br><small style="color:#6B7280">(LinkedIn, X, Facebook)</small></div>
+        <div class="jmap-cell">Sitio web, artículos largos, podcast, newsletter</div>
+        <div class="jmap-cell">Comentarios, encuestas, debates, lives</div>
+        <div class="jmap-cell">Comunidad privada, boletines exclusivos, eventos</div>
+        <div class="jmap-cell">Newsletter, contenido exclusivo, acceso anticipado</div>
+        <div class="jmap-cell">Recomendaciones, eventos, co-creación</div>
+      </div>
+      <div class="jmap-row jmap-row-7">
+        <div class="jmap-label">Actions</div>
+        <div class="jmap-cell"><ul class="jmap-actions"><li>Ve una publicación</li><li>Revisa el perfil del medio</li></ul></div>
+        <div class="jmap-cell"><ul class="jmap-actions"><li>Lee artículos completos</li><li>Escucha episodios</li><li>Evalúa credibilidad</li></ul></div>
+        <div class="jmap-cell"><ul class="jmap-actions"><li>Comenta y opina</li><li>Participa en encuestas</li><li>Asiste a lives</li></ul></div>
+        <div class="jmap-cell"><ul class="jmap-actions"><li>Se une a la comunidad</li><li>Participa en debates</li><li>Envía sugerencias</li></ul></div>
+        <div class="jmap-cell"><ul class="jmap-actions"><li>Se suscribe al newsletter</li><li>Accede a contenido exclusivo</li><li>Asiste a eventos</li></ul></div>
+        <div class="jmap-cell"><ul class="jmap-actions"><li>Recomienda el medio</li><li>Invita a otros</li><li>Co-crea contenido</li></ul></div>
+      </div>
+      <div class="jmap-row jmap-row-7">
+        <div class="jmap-label">Thinking</div>
+        <div class="jmap-cell" style="font-style:italic;color:#374151;">"Parece diferente a los demás medios."</div>
+        <div class="jmap-cell" style="font-style:italic;color:#374151;">"Aquí sí analizan los temas a fondo."</div>
+        <div class="jmap-cell" style="font-style:italic;color:#374151;">"Quiero aportar mi punto de vista."</div>
+        <div class="jmap-cell" style="font-style:italic;color:#374151;">"Me escuchan y valoran mis ideas."</div>
+        <div class="jmap-cell" style="font-style:italic;color:#374151;">"Este medio comprende lo que necesito."</div>
+        <div class="jmap-cell" style="font-style:italic;color:#374151;">"Vale la pena apoyar y recomendarlo."</div>
+      </div>
+      <div class="jmap-row jmap-row-7" style="background:#fafafa;">
+        <div class="jmap-label">Feeling</div>
+        <div class="jmap-feeling-cell"><span class="jmap-emoji">🤔</span><div class="jmap-feeling-name">Interesado</div></div>
+        <div class="jmap-feeling-cell"><span class="jmap-emoji">🙂</span><div class="jmap-feeling-name">Confiado</div></div>
+        <div class="jmap-feeling-cell"><span class="jmap-emoji">😊</span><div class="jmap-feeling-name">Escuchado</div></div>
+        <div class="jmap-feeling-cell"><span class="jmap-emoji">🥰</span><div class="jmap-feeling-name">Identificado</div></div>
+        <div class="jmap-feeling-cell"><span class="jmap-emoji">😏</span><div class="jmap-feeling-name">Cercano</div></div>
+        <div class="jmap-feeling-cell"><span class="jmap-emoji">🤩</span><div class="jmap-feeling-name">Orgulloso</div></div>
+      </div>
+      <div class="jmap-row jmap-row-7">
+        <div class="jmap-label">Goals</div>
+        <div class="jmap-goal-cell">Encontrar un medio confiable y diferente.</div>
+        <div class="jmap-goal-cell">Validar credibilidad y enfoque editorial.</div>
+        <div class="jmap-goal-cell">Participar activamente en conversaciones.</div>
+        <div class="jmap-goal-cell">Conectar con personas e ideas afines.</div>
+        <div class="jmap-goal-cell">Tener acceso a contenido valioso y exclusivo.</div>
+        <div class="jmap-goal-cell">Contribuir al crecimiento del medio y la comunidad.</div>
+      </div>
+      <div class="jmap-row jmap-row-7">
+        <div class="jmap-label">Pain Points</div>
+        <div class="jmap-pain-cell">Información superficial y sensacionalista.</div>
+        <div class="jmap-pain-cell">Sesgo editorial o poca profundidad.</div>
+        <div class="jmap-pain-cell">Falta de interacción en otros medios.</div>
+        <div class="jmap-pain-cell">Medios impersonales y comunidades cerradas.</div>
+        <div class="jmap-pain-cell">Contenido repetitivo o poco exclusivo.</div>
+        <div class="jmap-pain-cell">No ser tomado en cuenta como miembro activo.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ DANIELA ══ -->
+  <div class="jmap-content" id="jmap-daniela">
+    <div class="jmap-header">
+      <div class="jmap-persona">
+        <div class="jmap-avatar">👩‍💼</div>
+        <div>
+          <div class="jmap-pname">Daniela Rivera</div>
+          <div class="jmap-prole">Lectora digital</div>
+          <div class="jmap-pdata">👤 29 años &nbsp;|&nbsp; 💼 Coordinadora de proyectos ONG &nbsp;|&nbsp; 📍 San Pedro Sula</div>
+          <div class="jmap-pquote">"Quiero entender lo importante del día sin perder tiempo."</div>
+        </div>
+      </div>
+      <div class="jmap-desc">
+        <div class="jmap-desc-title">Customer Journey Map – Lectora Digital</div>
+        <div class="jmap-desc-text">Este mapa muestra cómo Daniela interactúa con nuestro medio digital multiplataforma, desde que descubre un contenido hasta que se convierte en una lectora fiel y defensora de la marca.</div>
+      </div>
+    </div>
+    <div class="jmap-table">
+      <div class="jmap-row jmap-row-7">
+        <div class="jmap-label">Fases</div>
+        <div class="jmap-fase-cell"><div class="jmap-fase-num" style="background:#22c55e">1</div><div class="jmap-fase-name">Descubrimiento</div><div class="jmap-fase-sub">Awareness</div></div>
+        <div class="jmap-fase-cell"><div class="jmap-fase-num" style="background:#06b6d4">2</div><div class="jmap-fase-name">Consideración</div><div class="jmap-fase-sub">Research</div></div>
+        <div class="jmap-fase-cell"><div class="jmap-fase-num" style="background:#3b82f6">3</div><div class="jmap-fase-name">Consumo</div><div class="jmap-fase-sub">Content Consumption</div></div>
+        <div class="jmap-fase-cell"><div class="jmap-fase-num" style="background:#8b5cf6">4</div><div class="jmap-fase-name">Participación</div><div class="jmap-fase-sub">Interaction</div></div>
+        <div class="jmap-fase-cell"><div class="jmap-fase-num" style="background:#ec4899">5</div><div class="jmap-fase-name">Fidelización</div><div class="jmap-fase-sub">Loyalty</div></div>
+        <div class="jmap-fase-cell"><div class="jmap-fase-num" style="background:#f97316">6</div><div class="jmap-fase-name">Conversión</div><div class="jmap-fase-sub">Advocacy</div></div>
+      </div>
+      <div class="jmap-row jmap-row-7">
+        <div class="jmap-label">Touch&shy;points</div>
+        <div class="jmap-cell">Redes sociales<br><small style="color:#6B7280">(reels, posts, stories)</small></div>
+        <div class="jmap-cell">Buscador, sitio web, recomendaciones</div>
+        <div class="jmap-cell">Sitio web, artículos, newsletter</div>
+        <div class="jmap-cell">Comentarios, guardados, compartidos, encuestas</div>
+        <div class="jmap-cell">Newsletter, notificaciones, contenido exclusivo</div>
+        <div class="jmap-cell">Comunidad, referidos, membresía</div>
+      </div>
+      <div class="jmap-row jmap-row-7">
+        <div class="jmap-label">Actions</div>
+        <div class="jmap-cell"><ul class="jmap-actions"><li>Ve un titular atractivo</li><li>Hace clic en el enlace</li></ul></div>
+        <div class="jmap-cell"><ul class="jmap-actions"><li>Entra al sitio web</li><li>Lee titulares</li><li>Elige una nota</li></ul></div>
+        <div class="jmap-cell"><ul class="jmap-actions"><li>Lee el artículo completo</li><li>Explora contenido relacionado</li><li>Se suscribe al newsletter</li></ul></div>
+        <div class="jmap-cell"><ul class="jmap-actions"><li>Guarda el artículo</li><li>Comenta o participa</li><li>Comparte en redes</li></ul></div>
+        <div class="jmap-cell"><ul class="jmap-actions"><li>Abre correos</li><li>Regresa al sitio</li><li>Consume contenido regularmente</li></ul></div>
+        <div class="jmap-cell"><ul class="jmap-actions"><li>Recomienda el medio</li><li>Comparte contenido</li><li>Considera membresía</li></ul></div>
+      </div>
+      <div class="jmap-row jmap-row-7">
+        <div class="jmap-label">Thinking</div>
+        <div class="jmap-cell" style="font-style:italic;color:#374151;">"¿Qué pasó hoy que todos están hablando?"</div>
+        <div class="jmap-cell" style="font-style:italic;color:#374151;">"A ver, este medio se ve confiable y claro."</div>
+        <div class="jmap-cell" style="font-style:italic;color:#374151;">"Esto explica lo que necesito entender."</div>
+        <div class="jmap-cell" style="font-style:italic;color:#374151;">"Esto vale la pena compartirlo."</div>
+        <div class="jmap-cell" style="font-style:italic;color:#374151;">"Siempre encuentro buena información aquí."</div>
+        <div class="jmap-cell" style="font-style:italic;color:#374151;">"Este medio sí aporta valor, quiero apoyarlo."</div>
+      </div>
+      <div class="jmap-row jmap-row-7" style="background:#fafafa;">
+        <div class="jmap-label">Feeling</div>
+        <div class="jmap-feeling-cell"><span class="jmap-emoji">🤔</span><div class="jmap-feeling-name">Curiosa</div></div>
+        <div class="jmap-feeling-cell"><span class="jmap-emoji">🙂</span><div class="jmap-feeling-name">Interesada</div></div>
+        <div class="jmap-feeling-cell"><span class="jmap-emoji">😊</span><div class="jmap-feeling-name">Informada</div></div>
+        <div class="jmap-feeling-cell"><span class="jmap-emoji">🥰</span><div class="jmap-feeling-name">Conectada</div></div>
+        <div class="jmap-feeling-cell"><span class="jmap-emoji">😏</span><div class="jmap-feeling-name">Confiada</div></div>
+        <div class="jmap-feeling-cell"><span class="jmap-emoji">🤩</span><div class="jmap-feeling-name">Comprometida</div></div>
+      </div>
+      <div class="jmap-row jmap-row-7">
+        <div class="jmap-label">Goals</div>
+        <div class="jmap-goal-cell">Enterarse rápido de lo más importante.</div>
+        <div class="jmap-goal-cell">Validar si la información es confiable y útil.</div>
+        <div class="jmap-goal-cell">Entender a profundidad el contexto.</div>
+        <div class="jmap-goal-cell">Compartir información útil y participar.</div>
+        <div class="jmap-goal-cell">Mantenerse actualizada todos los días.</div>
+        <div class="jmap-goal-cell">Apoyar y ser parte de la comunidad.</div>
+      </div>
+      <div class="jmap-row jmap-row-7">
+        <div class="jmap-label">Pain Points</div>
+        <div class="jmap-pain-cell">Titulares engañosos o sensacionalistas.</div>
+        <div class="jmap-pain-cell">Sitios desordenados, mucha publicidad.</div>
+        <div class="jmap-pain-cell">Artículos muy largos o difíciles de entender.</div>
+        <div class="jmap-pain-cell">Comentarios tóxicos, poca moderación.</div>
+        <div class="jmap-pain-cell">Notificaciones irrelevantes o excesivas.</div>
+        <div class="jmap-pain-cell">Falta de interacción real con el medio.</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end jmap-wrap -->
+</div><!-- end slide-journey -->
 
 <!-- ═══ SLIDE EMBUDO ═══ -->
 <div class="slide" id="slide-embudo">
@@ -2338,6 +2474,14 @@ function showSlide(id) {
 
   // Scroll to top
   document.getElementById('slide-' + id).scrollTop = 0;
+}
+
+function showJmap(id, btn) {
+  document.querySelectorAll('.jmap-content').forEach(j => j.classList.remove('active'));
+  document.querySelectorAll('.jmap-tab').forEach(t => t.classList.remove('active'));
+  const el = document.getElementById('jmap-' + id);
+  if (el) el.classList.add('active');
+  if (btn) btn.classList.add('active');
 }
 
 function showJourney(persona) {
