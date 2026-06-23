@@ -1275,151 +1275,330 @@
 
 <!-- ═══ SLIDE CANVAS ═══ -->
 <div class="slide" id="slide-canvas">
-  <div class="slide-header">
-    <div class="slide-eyebrow">Modelo de Negocio</div>
-    <div class="slide-title">Business Model Canvas</div>
-    <div class="section-divider"></div>
+<style>
+  #slide-canvas { background:#0B1F3A; overflow-y:auto; padding:0; }
+  .bmc-wrap { padding:16px 20px 24px; }
+
+  /* Header */
+  .bmc-top { text-align:center; margin-bottom:14px; }
+  .bmc-logo { font-family:'Merriweather',serif; font-size:28px; font-weight:700; font-style:italic; color:#fff; letter-spacing:-1px; }
+  .bmc-tag { font-size:11px; color:rgba(255,255,255,0.55); margin-top:4px; max-width:780px; margin-inline:auto; line-height:1.6; }
+  .bmc-pitch { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:12px 18px; margin:10px 0 14px; font-size:12px; color:#fff; font-style:italic; line-height:1.6; text-align:left; }
+  .bmc-pitch strong { color:#FF6B6B; font-style:normal; }
+
+  /* OPERATIONS / ENGAGEMENT arrows */
+  .bmc-arrows { display:flex; justify-content:center; gap:0; margin-bottom:4px; }
+  .bmc-arrow { padding:4px 16px; font-size:9px; font-weight:800; letter-spacing:2px; text-transform:uppercase; }
+  .bmc-arrow-ops { background:rgba(255,255,255,0.07); color:rgba(255,255,255,0.5); border-radius:4px 0 0 4px; border:1px solid rgba(255,255,255,0.1); }
+  .bmc-arrow-eng { background:rgba(255,107,107,0.15); color:#FF6B6B; border-radius:0 4px 4px 0; border:1px solid rgba(255,107,107,0.25); }
+
+  /* Main grid — exact layout from image */
+  /* 5 columns: Partners | Activities+Resources | SVP | Relations | Stakeholders */
+  .bmc-main { display:grid; grid-template-columns:1fr 1fr 1.5fr 1fr 1fr; grid-template-rows:1fr 1fr; gap:6px; min-height:320px; margin-bottom:6px; }
+
+  /* Bottom row: Cost | Value Capture */
+  .bmc-bottom { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:6px; }
+
+  /* Impact row */
+  .bmc-impact-row { display:grid; grid-template-columns:160px 1fr 1fr 1fr; gap:6px; }
+
+  /* Cell base */
+  .bmc-cell {
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:10px;
+    padding:12px 14px;
+    color:#fff;
+    transition:all 0.2s;
+    position:relative;
+  }
+  .bmc-cell:hover { background:rgba(255,107,107,0.07); border-color:rgba(255,107,107,0.35); }
+
+  /* Cell número */
+  .bmc-num { position:absolute; top:8px; right:10px; font-size:22px; font-weight:900; color:rgba(255,255,255,0.08); line-height:1; }
+
+  /* Cell título */
+  .bmc-ctitle { font-size:9px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:#FF6B6B; margin-bottom:8px; }
+
+  /* Cell contenido */
+  .bmc-section { margin-bottom:8px; }
+  .bmc-section-title { font-size:9px; font-weight:700; color:rgba(255,255,255,0.5); margin-bottom:3px; text-transform:uppercase; letter-spacing:1px; }
+  .bmc-list { list-style:none; font-size:10px; color:rgba(255,255,255,0.75); line-height:1.8; }
+  .bmc-list li::before { content:"· "; color:#FF6B6B; font-weight:700; }
+
+  /* SVP cell especial */
+  .bmc-svp { grid-column:3; grid-row:1/3; background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.15); }
+  .bmc-svp:hover { background:rgba(255,107,107,0.1); }
+  .bmc-svp-q { font-size:9px; font-weight:700; color:rgba(255,255,255,0.45); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px; }
+  .bmc-svp-text { font-size:10px; color:rgba(255,255,255,0.8); line-height:1.7; margin-bottom:10px; }
+  .bmc-svp-highlight { background:rgba(255,107,107,0.12); border:1px solid rgba(255,107,107,0.25); border-radius:8px; padding:8px 10px; font-size:11px; font-weight:600; color:#fff; line-height:1.5; margin-top:8px; }
+
+  /* Partners cell: full 2 rows */
+  .bmc-partners { grid-column:1; grid-row:1/3; }
+
+  /* Activities: row 1 col 2 */
+  /* Resources: row 2 col 2 */
+
+  /* Relations: row 1 col 4 */
+  /* Channels: row 2 col 4 */
+
+  /* Stakeholders: full 2 rows col 5 */
+  .bmc-stakeholders { grid-column:5; grid-row:1/3; }
+
+  /* Bottom cells */
+  .bmc-cost { }
+  .bmc-value { background:rgba(255,255,255,0.07); }
+
+  /* Impact cell */
+  .bmc-impact-label { background:rgba(255,107,107,0.15); border:1px solid rgba(255,107,107,0.25); border-radius:10px; padding:12px 10px; display:flex; align-items:center; justify-content:center; }
+  .bmc-impact-label-text { font-size:9px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:#FF6B6B; text-align:center; }
+  .bmc-impact-col { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:10px 14px; }
+  .bmc-impact-title { font-size:9px; font-weight:700; color:rgba(255,255,255,0.45); text-transform:uppercase; letter-spacing:1px; margin-bottom:5px; }
+
+  /* Instagram link */
+  .bmc-ig-link { display:inline-flex; align-items:center; gap:6px; padding:5px 12px; background:rgba(255,107,107,0.15); border:1px solid rgba(255,107,107,0.3); border-radius:20px; font-size:10px; font-weight:700; color:#FF6B6B; text-decoration:none; transition:all 0.2s; margin-top:6px; }
+  .bmc-ig-link:hover { background:rgba(255,107,107,0.25); color:#fff; }
+</style>
+
+<div class="bmc-wrap">
+
+  <!-- Header -->
+  <div class="bmc-top">
+    <div class="bmc-logo">La Giornata</div>
+    <div class="bmc-pitch">
+      <strong>"La Giornata es un medio digital multiplataforma</strong> que ayuda a profesionales y ciudadanos ocupados a comprender lo más importante del día en pocos minutos mediante un resumen inteligente de noticias, contenido explicativo y podcast, financiado a través de suscripciones, publicidad, alianzas y membresías."
+    </div>
   </div>
 
-  <div class="canvas-grid">
-    <!-- STAKEHOLDERS 1 -->
-    <div class="canvas-cell">
-      <div class="cell-num">01 · STAKEHOLDERS</div>
-      <div class="cell-title">Audiencia & Aliados</div>
-      <ul class="cell-items">
-        <li>Profesionales 25–45 años</li>
-        <li>Ejecutivos y emprendedores</li>
-        <li>Universitarios y líderes de opinión</li>
-        <li>Universidades y ONGs aliadas</li>
-        <li>Periodistas invitados</li>
-      </ul>
-    </div>
+  <!-- OPERATIONS / ENGAGEMENT -->
+  <div class="bmc-arrows">
+    <div class="bmc-arrow bmc-arrow-ops">← OPERATIONS</div>
+    <div class="bmc-arrow bmc-arrow-eng">ENGAGEMENT →</div>
+  </div>
 
-    <!-- ACTIVITIES 7 -->
-    <div class="canvas-cell">
-      <div class="cell-num">07 · ACTIVIDADES</div>
-      <div class="cell-title">Actividades Clave</div>
-      <ul class="cell-items">
-        <li>Producción editorial</li>
-        <li>Podcast semanal</li>
-        <li>Gestión de comunidad</li>
-        <li>Verificación de datos</li>
-        <li>Gestión de patrocinadores</li>
-        <li>Redes sociales y newsletter</li>
-      </ul>
-    </div>
+  <!-- MAIN GRID: 5 cols × 2 rows -->
+  <div class="bmc-main">
 
-    <!-- VALUE PROPOSITION 2 - CENTRAL -->
-    <div class="canvas-cell canvas-vp">
-      <div class="cell-num">02 · PROPUESTA DE VALOR</div>
-      <div class="cell-title">Social Value Proposition</div>
-      <div class="vp-headline">"La Giornata ayuda a profesionales y ciudadanos ocupados a comprender lo más importante del día en pocos minutos."</div>
-      <ul class="cell-items">
-        <li>Resumen diario de noticias</li>
-        <li>Contenido explicativo y contextualizado</li>
-        <li>Podcast informativo de calidad</li>
-        <li>Noticias verificadas y confiables</li>
-        <li>Experiencia multiplataforma</li>
-        <li>Comunidad participativa activa</li>
-      </ul>
-      <div style="margin-top:14px; font-size:11px; color:rgba(255,255,255,0.5); font-style:italic;">
-        Beneficio principal: Entender lo importante del día en pocos minutos.
+    <!-- 8 KEY PARTNERS — col 1, rows 1-2 -->
+    <div class="bmc-cell bmc-partners">
+      <div class="bmc-num">8</div>
+      <div class="bmc-ctitle">Key Partners</div>
+      <div class="bmc-section">
+        <div class="bmc-section-title">Académicos</div>
+        <ul class="bmc-list"><li>Universidades</li><li>Centros de investigación</li></ul>
+      </div>
+      <div class="bmc-section">
+        <div class="bmc-section-title">Periodísticos</div>
+        <ul class="bmc-list"><li>Periodistas independientes</li><li>Expertos invitados</li></ul>
+      </div>
+      <div class="bmc-section">
+        <div class="bmc-section-title">Tecnológicos</div>
+        <ul class="bmc-list"><li>Spotify</li><li>YouTube</li><li>Google</li><li>Meta</li></ul>
+      </div>
+      <div class="bmc-section">
+        <div class="bmc-section-title">Comerciales</div>
+        <ul class="bmc-list"><li>Patrocinadores</li><li>Anunciantes</li><li>Empresas aliadas</li></ul>
+      </div>
+      <div class="bmc-section">
+        <div class="bmc-section-title">Verificación</div>
+        <ul class="bmc-list"><li>Organizaciones de fact-checking</li><li>Observatorios de medios</li></ul>
       </div>
     </div>
 
-    <!-- RELATIONS 4 -->
-    <div class="canvas-cell">
-      <div class="cell-num">04 · RELACIONES</div>
-      <div class="cell-title">Relación con Clientes</div>
-      <ul class="cell-items">
-        <li>Newsletter personalizado</li>
-        <li>Comunidad digital activa</li>
-        <li>Podcast diario o semanal</li>
-        <li>Notificaciones y alertas</li>
-        <li>Membresías premium</li>
-        <li>Eventos exclusivos</li>
-      </ul>
+    <!-- 7 ACTIVITIES — col 2, row 1 -->
+    <div class="bmc-cell">
+      <div class="bmc-num">7</div>
+      <div class="bmc-ctitle">Activities</div>
+      <div class="bmc-section">
+        <div class="bmc-section-title">Producción editorial</div>
+        <ul class="bmc-list"><li>Investigación</li><li>Redacción</li><li>Verificación de datos</li></ul>
+      </div>
+      <div class="bmc-section">
+        <div class="bmc-section-title">Producción multimedia</div>
+        <ul class="bmc-list"><li>Podcast</li><li>Video</li><li>Redes sociales</li></ul>
+      </div>
+      <div class="bmc-section">
+        <div class="bmc-section-title">Gestión de comunidad</div>
+        <ul class="bmc-list"><li>Moderación</li><li>Participación</li><li>Encuestas</li></ul>
+      </div>
+      <div class="bmc-section">
+        <div class="bmc-section-title">Comercial</div>
+        <ul class="bmc-list"><li>Gestión de patrocinadores</li><li>Ventas de publicidad</li><li>Gestión de suscripciones</li></ul>
+      </div>
     </div>
 
-    <!-- KEY PARTNERS 8 -->
-    <div class="canvas-cell">
-      <div class="cell-num">08 · SOCIOS</div>
-      <div class="cell-title">Key Partners</div>
-      <ul class="cell-items">
-        <li>Universidades y centros</li>
-        <li>Periodistas independientes</li>
-        <li>Spotify / YouTube / Google</li>
-        <li>Patrocinadores y anunciantes</li>
-        <li>Fact-checkers y observatorios</li>
+    <!-- 2 SOCIAL VALUE PROPOSITION — col 3, rows 1-2 -->
+    <div class="bmc-cell bmc-svp">
+      <div class="bmc-num">2</div>
+      <div class="bmc-ctitle">Social Value Proposition</div>
+      <div class="bmc-svp-q">¿Qué problema resolvemos?</div>
+      <div class="bmc-svp-text">Las personas tienen poco tiempo para mantenerse informadas y están expuestas a grandes volúmenes de información, desinformación y noticias sin contexto.</div>
+      <div class="bmc-svp-q">¿Qué ofrecemos?</div>
+      <ul class="bmc-list" style="margin-bottom:10px;">
+        <li>Resumen diario de noticias</li>
+        <li>Contenido explicativo y contextualizado</li>
+        <li>Podcast informativo</li>
+        <li>Noticias verificadas</li>
+        <li>Experiencia multiplataforma</li>
+        <li>Comunidad participativa</li>
       </ul>
+      <div class="bmc-svp-highlight">
+        🎯 <strong>Beneficio principal:</strong><br>Entender lo importante del día en pocos minutos.
+      </div>
+      <a href="https://www.instagram.com/lagiornata.hn/" target="_blank" class="bmc-ig-link">
+        📷 @lagiornata.hn
+      </a>
     </div>
 
-    <!-- KEY RESOURCES 6 -->
-    <div class="canvas-cell">
-      <div class="cell-num">06 · RECURSOS</div>
-      <div class="cell-title">Recursos Clave</div>
-      <ul class="cell-items">
-        <li>Equipo periodístico (7 personas)</li>
-        <li>Plataforma web y CMS</li>
-        <li>Estudio de podcast</li>
-        <li>Herramientas de analítica digital</li>
-        <li>Base de suscriptores</li>
-        <li>Marca La Giornata</li>
-      </ul>
+    <!-- 4 RELATIONS — col 4, row 1 -->
+    <div class="bmc-cell">
+      <div class="bmc-num">4</div>
+      <div class="bmc-ctitle">Relations</div>
+      <div class="bmc-section">
+        <div class="bmc-section-title">Relación directa</div>
+        <ul class="bmc-list"><li>Newsletter personalizado</li><li>Comunidad digital</li><li>Encuestas</li><li>Comentarios</li></ul>
+      </div>
+      <div class="bmc-section">
+        <div class="bmc-section-title">Relación continua</div>
+        <ul class="bmc-list"><li>Podcast diario o semanal</li><li>Notificaciones</li><li>Alertas informativas</li></ul>
+      </div>
+      <div class="bmc-section">
+        <div class="bmc-section-title">Relación premium</div>
+        <ul class="bmc-list"><li>Membresías</li><li>Eventos exclusivos</li><li>Reportajes especiales</li></ul>
+      </div>
     </div>
 
-    <!-- CHANNELS 3 -->
-    <div class="canvas-cell">
-      <div class="cell-num">03 · CANALES</div>
-      <div class="cell-title">Channels</div>
-      <ul class="cell-items">
-        <li>Sitio web lagiornata.hn</li>
-        <li>Newsletter matutino</li>
-        <li>Instagram / Facebook / YouTube</li>
-        <li>Spotify y plataformas de podcast</li>
-        <li>WhatsApp Channels</li>
-      </ul>
+    <!-- 1 STAKEHOLDERS — col 5, rows 1-2 -->
+    <div class="bmc-cell bmc-stakeholders">
+      <div class="bmc-num">1</div>
+      <div class="bmc-ctitle">Stakeholders</div>
+      <div class="bmc-section">
+        <div class="bmc-section-title">Audiencia principal</div>
+        <ul class="bmc-list"><li>Profesionales de 25 a 45 años</li><li>Ejecutivos</li><li>Emprendedores</li><li>Líderes de opinión</li></ul>
+      </div>
+      <div class="bmc-section">
+        <div class="bmc-section-title">Audiencia secundaria</div>
+        <ul class="bmc-list"><li>Universitarios</li><li>Jóvenes profesionales</li><li>Estudiantes de periodismo</li></ul>
+      </div>
+      <div class="bmc-section">
+        <div class="bmc-section-title">Aliados</div>
+        <ul class="bmc-list"><li>Universidades</li><li>Organizaciones civiles</li><li>Expertos temáticos</li><li>Periodistas invitados</li></ul>
+      </div>
+      <div class="bmc-section">
+        <div class="bmc-section-title">Patrocinadores</div>
+        <ul class="bmc-list"><li>Empresas privadas</li><li>Organismos internacionales</li><li>Marcas interesadas en contenido informativo</li></ul>
+      </div>
     </div>
 
-    <!-- VALUE CAPTURE 5 -->
-    <div class="canvas-cell">
-      <div class="cell-num">05 · VALOR</div>
-      <div class="cell-title">Value Capture</div>
-      <ul class="cell-items">
-        <li>Suscripciones digitales</li>
-        <li>Membresías premium</li>
-        <li>Publicidad digital</li>
-        <li>Podcast y newsletter patrocinado</li>
-        <li>Eventos y webinars</li>
-        <li>Donaciones · Alianzas</li>
-      </ul>
+    <!-- 6 KEY RESOURCES — col 2, row 2 -->
+    <div class="bmc-cell">
+      <div class="bmc-num">6</div>
+      <div class="bmc-ctitle">Key Resources</div>
+      <div class="bmc-section">
+        <div class="bmc-section-title">Humanos</div>
+        <ul class="bmc-list"><li>Periodistas y editores</li><li>Productores de podcast</li><li>Diseñadores UX/UI</li><li>Community managers</li></ul>
+      </div>
+      <div class="bmc-section">
+        <div class="bmc-section-title">Tecnológicos</div>
+        <ul class="bmc-list"><li>Sitio web y CMS</li><li>Plataforma de newsletter</li><li>Plataforma de podcast</li><li>Analítica digital</li></ul>
+      </div>
+      <div class="bmc-section">
+        <div class="bmc-section-title">Intangibles</div>
+        <ul class="bmc-list"><li>Marca La Giornata</li><li>Comunidad</li><li>Credibilidad</li><li>Base de datos de suscriptores</li></ul>
+      </div>
+    </div>
+
+    <!-- 3 CHANNELS — col 4, row 2 -->
+    <div class="bmc-cell">
+      <div class="bmc-num">3</div>
+      <div class="bmc-ctitle">Channels</div>
+      <div class="bmc-section">
+        <div class="bmc-section-title">Propios</div>
+        <ul class="bmc-list"><li>Sitio web</li><li>Newsletter matutino</li><li>Podcast</li><li>Aplicación móvil (futuro)</li></ul>
+      </div>
+      <div class="bmc-section">
+        <div class="bmc-section-title">Redes sociales</div>
+        <ul class="bmc-list"><li>Instagram</li><li>Facebook</li><li>LinkedIn</li><li>YouTube</li></ul>
+      </div>
+      <div class="bmc-section">
+        <div class="bmc-section-title">Distribución</div>
+        <ul class="bmc-list"><li>Spotify</li><li>WhatsApp Channels</li></ul>
+      </div>
+      <a href="https://www.instagram.com/lagiornata.hn/" target="_blank" class="bmc-ig-link">
+        📷 Instagram @lagiornata.hn
+      </a>
+    </div>
+
+  </div><!-- end bmc-main -->
+
+  <!-- BOTTOM: 9 Cost Structure + 5 Value Capture -->
+  <div class="bmc-bottom">
+
+    <!-- 9 COST STRUCTURE -->
+    <div class="bmc-cell bmc-cost">
+      <div class="bmc-num">9</div>
+      <div class="bmc-ctitle">Cost Structure</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+        <div>
+          <div class="bmc-section-title">Costos operativos</div>
+          <ul class="bmc-list"><li>Salarios del equipo</li><li>Producción de podcast</li><li>Producción audiovisual</li></ul>
+        </div>
+        <div>
+          <div class="bmc-section-title">Tecnología</div>
+          <ul class="bmc-list"><li>Hosting</li><li>Dominio</li><li>Licencias</li><li>Software editorial</li></ul>
+        </div>
+        <div>
+          <div class="bmc-section-title">Marketing</div>
+          <ul class="bmc-list"><li>Publicidad digital</li><li>Gestión de redes</li></ul>
+        </div>
+        <div>
+          <div class="bmc-section-title">Administración</div>
+          <ul class="bmc-list"><li>Servicios legales</li><li>Contabilidad</li><li>Gestión de alianzas</li></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5 VALUE CAPTURE -->
+    <div class="bmc-cell bmc-value">
+      <div class="bmc-num">5</div>
+      <div class="bmc-ctitle">Value Capture</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div>
+          <div class="bmc-section-title">Principal</div>
+          <ul class="bmc-list"><li style="font-weight:700;color:#fff;">Suscripciones digitales</li></ul>
+          <div class="bmc-section-title" style="margin-top:8px;">Secundarias</div>
+          <ul class="bmc-list"><li>Membresías premium</li><li>Publicidad digital</li><li>Podcast patrocinado</li></ul>
+        </div>
+        <div>
+          <div class="bmc-section-title">&nbsp;</div>
+          <ul class="bmc-list"><li>Newsletter patrocinado</li><li>Donaciones</li><li>Eventos</li><li>Webinars</li><li>Alianzas estratégicas</li><li>Informes especializados</li></ul>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end bmc-bottom -->
+
+  <!-- INTENDED IMPACT -->
+  <div class="bmc-impact-row">
+    <div class="bmc-impact-label">
+      <div class="bmc-impact-label-text">Intended<br>Impact</div>
+    </div>
+    <div class="bmc-impact-col">
+      <div class="bmc-impact-title">En la audiencia</div>
+      <ul class="bmc-list"><li>Ciudadanos mejor informados.</li><li>Mayor comprensión de la actualidad.</li><li>Desarrollo del pensamiento crítico.</li></ul>
+    </div>
+    <div class="bmc-impact-col">
+      <div class="bmc-impact-title">En la sociedad</div>
+      <ul class="bmc-list"><li>Combate a la desinformación.</li><li>Fortalecimiento de la participación ciudadana.</li><li>Promoción del acceso a información confiable.</li></ul>
+    </div>
+    <div class="bmc-impact-col">
+      <div class="bmc-impact-title">En el ecosistema mediático</div>
+      <ul class="bmc-list"><li>Impulsar el periodismo explicativo.</li><li>Innovar en formatos digitales.</li><li>Construir una comunidad informativa sostenible.</li></ul>
     </div>
   </div>
 
-  <div class="canvas-bottom" style="margin-top:10px;">
-    <div class="canvas-bottom-cell">
-      <div class="cell-num" style="color:var(--coral)">09 · ESTRUCTURA DE COSTOS</div>
-      <div class="cell-title">Cost Structure</div>
-      <ul class="cell-items">
-        <li>Salarios del equipo (7 personas)</li>
-        <li>Hosting, dominio y licencias</li>
-        <li>Producción de podcast y audiovisual</li>
-        <li>Publicidad digital y gestión de redes</li>
-        <li>Servicios legales y contabilidad</li>
-      </ul>
-    </div>
-    <div class="canvas-bottom-cell">
-      <div class="cell-num" style="color:var(--coral)">IMPACTO ESPERADO</div>
-      <div class="cell-title">Intended Impact</div>
-      <ul class="cell-items">
-        <li>Ciudadanos mejor informados y con pensamiento crítico</li>
-        <li>Combate a la desinformación en Honduras</li>
-        <li>Impulsar el periodismo explicativo en CA</li>
-        <li>Construir una comunidad informativa sostenible</li>
-      </ul>
-    </div>
-  </div>
-</div>
+</div><!-- end bmc-wrap -->
+</div><!-- end slide-canvas -->
 
 <!-- ═══ SLIDE AUDIENCIA ═══ -->
 <div class="slide" id="slide-audiencia">
